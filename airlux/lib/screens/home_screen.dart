@@ -14,10 +14,15 @@ class HomeScreen extends StatelessWidget {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  // Websocket server connection
-  final channel = WebSocketChannel.connect(
+  // Websocket connection (test server)
+  final testChannel = WebSocketChannel.connect(
     Uri.parse('wss://echo.websocket.events'),
   );
+
+  // Websockets connections (local and cloud servers)
+  final localChannel =
+      WebSocketChannel.connect(Uri.parse('ws://localhost:8081'));
+  final cloudChannel = WebSocketChannel.connect(Uri.parse("wss://"));
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +96,7 @@ class HomeScreen extends StatelessWidget {
                 obscureText: false,
               ),
               StreamBuilder(
-                stream: channel.stream,
+                stream: testChannel.stream,
                 builder: (context, snapshot) {
                   return Text(snapshot.hasData ? '${snapshot.data}' : '');
                 },
@@ -110,7 +115,7 @@ class HomeScreen extends StatelessWidget {
 
   void _sendMessage() {
     if (emailController.text.isNotEmpty) {
-      channel.sink.add(emailController.text);
+      testChannel.sink.add(emailController.text);
     }
   }
 }
