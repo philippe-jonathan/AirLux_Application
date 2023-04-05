@@ -2,21 +2,25 @@ import 'package:flutter/material.dart';
 
 class CustomCard extends StatefulWidget {
   final IconData icon;
+  final IconData outlinedIcon;
   final String title;
   final String subtitle;
-  final String pillText;
-  final Color pillColor;
+  final String pillTextOn;
+  final String pillTextOff;
   final bool switchValue;
+  final String room;
   final Function(bool) onSwitchChanged;
 
   const CustomCard({
     super.key,
     required this.icon,
+    required this.outlinedIcon,
     required this.title,
     required this.subtitle,
-    required this.pillText,
-    required this.pillColor,
+    required this.pillTextOn,
+    required this.pillTextOff,
     required this.switchValue,
+    required this.room,
     required this.onSwitchChanged,
   });
 
@@ -25,7 +29,7 @@ class CustomCard extends StatefulWidget {
 }
 
 class _CustomCardState extends State<CustomCard> {
-  late bool _switchValue = false;
+  late bool _switchValue;
 
   @override
   void initState() {
@@ -36,68 +40,73 @@ class _CustomCardState extends State<CustomCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          // crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Icon(
-              widget.icon,
-              size: 50,
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    widget.title,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
+                Icon(
+                  // widget.icon,
+                  _switchValue ? widget.icon : widget.outlinedIcon,
+                  size: 40,
                 ),
                 Container(
                   padding:
                       const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                   decoration: BoxDecoration(
-                    color: Colors.lime,
+                    color: _switchValue ? Colors.lime : Colors.grey[200],
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
-                    widget.pillText,
+                    _switchValue ? widget.pillTextOn : widget.pillTextOff,
                   ),
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                widget.subtitle,
-              ),
-            ),
-            const Divider(),
-            Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  const Text(
-                    "On",
-                  ),
-                  Switch(
-                    value: _switchValue,
-                    onChanged: (value) {
-                      setState(() {
-                        _switchValue = value;
-                      });
-                      widget.onSwitchChanged(value);
-                    },
-                  ),
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Expanded(
+                        child: SizedBox(
+                          width: 95,
+                          child: Text(
+                            widget.title,
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        widget.subtitle,
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ),
+                  ],
+                ),
+                Switch(
+                  value: _switchValue,
+                  onChanged: (value) {
+                    setState(() {
+                      _switchValue = value;
+                    });
+                    widget.onSwitchChanged(value);
+                  },
+                ),
+              ],
             ),
           ],
         ),

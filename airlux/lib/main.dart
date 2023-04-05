@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontStyle: FontStyle.italic),
             titleMedium: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+            titleSmall: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
             bodyMedium: TextStyle(fontSize: 16.0),
             bodySmall: TextStyle(fontSize: 14.0),
           ),

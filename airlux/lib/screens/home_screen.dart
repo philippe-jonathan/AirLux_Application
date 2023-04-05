@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:airlux/widgets/custom_card.dart';
 
-import '../widgets/custom_textfield.dart';
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -36,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // Index de la pièce sélectionnée
   int _selectedRoomIndex = 0;
+  String _selectedRoom = 'Salon';
 
   // Liste des pièces
   final List<String> _building1 = [
@@ -152,6 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     onTap: () {
                       setState(() {
                         _selectedRoomIndex = index;
+                        _selectedRoom = roomName;
                       });
                     },
                     child: Text(
@@ -168,23 +168,48 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
           ),
-          const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-          CustomCard(
-            icon: Icons.lightbulb,
-            title: "Lumières",
-            subtitle: "85 Lumières",
-            pillText: "Tout",
-            pillColor: Colors.lime,
-            switchValue: true,
-            onSwitchChanged: (bool) {},
+          const SizedBox(
+            height: 20,
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: CustomCard(
+                  icon: Icons.lightbulb,
+                  outlinedIcon: Icons.lightbulb_outline,
+                  title: "Lumières du salon",
+                  subtitle: "85 Lumières",
+                  pillTextOn: "Allumées",
+                  pillTextOff: "Éteintes",
+                  switchValue: true,
+                  room: "Salon",
+                  onSwitchChanged: (bool) {},
+                ),
+              ),
+              Expanded(
+                child: CustomCard(
+                  icon: Icons.sensor_window,
+                  outlinedIcon: Icons.sensor_window_outlined,
+                  title: "Volets",
+                  subtitle: "30 Volets",
+                  pillTextOn: "Fermés",
+                  pillTextOff: "Ouverts",
+                  switchValue: false,
+                  room: "Salon",
+                  onSwitchChanged: (bool) {},
+                ),
+              )
+            ],
           ),
           CustomCard(
-            icon: Icons.sensor_window,
-            title: "Volets",
-            subtitle: "30 Volets",
-            pillText: "Tout",
-            pillColor: Colors.lime,
+            icon: Icons.sensor_door,
+            outlinedIcon: Icons.sensor_door_outlined,
+            title: "Portes",
+            subtitle: "10 Portes",
+            pillTextOn: "Fermées",
+            pillTextOff: "Ouvertes",
             switchValue: false,
+            room: "Cuisine",
             onSwitchChanged: (bool) {},
           )
         ],
