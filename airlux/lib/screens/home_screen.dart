@@ -30,11 +30,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // Données pour le menu déroulant
   String? _selectedBuilding = 'Bâtiment 1';
-  final List<String> _pages = ['Bâtiment 1', 'Bâtiment 2'];
+  final List<String> _buildings = ['Bâtiment 1', 'Bâtiment 2'];
 
   // Index de la pièce sélectionnée
   int _selectedRoomIndex = 0;
-  String _selectedRoom = 'Salon';
+  String _selectedRoom = 'Tout';
 
   // Liste des pièces
   final List<String> _building1 = [
@@ -55,6 +55,82 @@ class _HomeScreenState extends State<HomeScreen> {
     'Bureau'
   ];
 
+  // Tableau des cards
+  List<CustomCard> allCards = [
+    CustomCard(
+      icon: Icons.lightbulb,
+      outlinedIcon: Icons.lightbulb_outline,
+      title: "Lumières du salon",
+      subtitle: "85 Lumières",
+      pillTextOn: "Allumées",
+      pillTextOff: "Éteintes",
+      switchValue: true,
+      building: "Bâtiment 1",
+      room: "Salon",
+      onSwitchChanged: (bool) {},
+    ),
+    CustomCard(
+      icon: Icons.sensor_window,
+      outlinedIcon: Icons.sensor_window_outlined,
+      title: "Volets",
+      subtitle: "30 Volets",
+      pillTextOn: "Fermés",
+      pillTextOff: "Ouverts",
+      switchValue: false,
+      building: "Bâtiment 2",
+      room: "Salon",
+      onSwitchChanged: (bool) {},
+    ),
+    CustomCard(
+      icon: Icons.sensor_door,
+      outlinedIcon: Icons.sensor_door_outlined,
+      title: "Portes",
+      subtitle: "10 Portes",
+      pillTextOn: "Fermées",
+      pillTextOff: "Ouvertes",
+      switchValue: false,
+      building: "Bâtiment 1",
+      room: "Cuisine",
+      onSwitchChanged: (bool) {},
+    ),
+    CustomCard(
+      icon: Icons.lightbulb,
+      outlinedIcon: Icons.lightbulb_outline,
+      title: "Lumières du salon",
+      subtitle: "85 Lumières",
+      pillTextOn: "Allumées",
+      pillTextOff: "Éteintes",
+      switchValue: true,
+      building: "Bâtiment 1",
+      room: "Chambre 1",
+      onSwitchChanged: (bool) {},
+    ),
+    CustomCard(
+      icon: Icons.sensor_window,
+      outlinedIcon: Icons.sensor_window_outlined,
+      title: "Volets",
+      subtitle: "30 Volets",
+      pillTextOn: "Fermés",
+      pillTextOff: "Ouverts",
+      switchValue: false,
+      building: "Bâtiment 2",
+      room: "Chambre 1",
+      onSwitchChanged: (bool) {},
+    ),
+    CustomCard(
+      icon: Icons.sensor_door,
+      outlinedIcon: Icons.sensor_door_outlined,
+      title: "Portes",
+      subtitle: "10 Portes",
+      pillTextOn: "Fermées",
+      pillTextOff: "Ouvertes",
+      switchValue: false,
+      building: "Bâtiment 2",
+      room: "Chambre 2",
+      onSwitchChanged: (bool) {},
+    )
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
               });
             },
             underline: Container(),
-            items: _pages.map<DropdownMenuItem<String>>((String value) {
+            items: _buildings.map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Text(value),
@@ -128,8 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                 })
           ]),
-      body: SafeArea(
-          child: Column(
+      body: Column(
         children: [
           Container(
             // width: 100,
@@ -171,49 +246,57 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 20,
           ),
-          Row(
-            children: [
-              Expanded(
-                child: CustomCard(
-                  icon: Icons.lightbulb,
-                  outlinedIcon: Icons.lightbulb_outline,
-                  title: "Lumières du salon",
-                  subtitle: "85 Lumières",
-                  pillTextOn: "Allumées",
-                  pillTextOff: "Éteintes",
-                  switchValue: true,
-                  room: "Salon",
-                  onSwitchChanged: (bool) {},
+          Expanded(
+            child: SafeArea(
+              child: SingleChildScrollView(
+                child: Column(
+                  children:
+                      /* Focntionnement de l'affichage de la liste des cards :  
+                      - Si la pièce selectionée est "Tout" alors on affiche toutes les cartes
+                      - Sinon on affiche que les cartes qui correspondent à la pièce selectionnée
+                      */
+                      _selectedRoom == "Tout"
+                          ? allCards
+                              .map((card) {
+                                return CustomCard(
+                                    icon: card.icon,
+                                    outlinedIcon: card.outlinedIcon,
+                                    title: card.title,
+                                    subtitle: card.subtitle,
+                                    pillTextOn: card.pillTextOn,
+                                    pillTextOff: card.pillTextOff,
+                                    switchValue: card.switchValue,
+                                    building: card.building,
+                                    room: card.room,
+                                    onSwitchChanged: card.onSwitchChanged);
+                              })
+                              .where(
+                                  (card) => card.building == _selectedBuilding)
+                              .toList()
+                          : allCards
+                              .map((card) {
+                                return CustomCard(
+                                    icon: card.icon,
+                                    outlinedIcon: card.outlinedIcon,
+                                    title: card.title,
+                                    subtitle: card.subtitle,
+                                    pillTextOn: card.pillTextOn,
+                                    pillTextOff: card.pillTextOff,
+                                    switchValue: card.switchValue,
+                                    building: card.building,
+                                    room: card.room,
+                                    onSwitchChanged: card.onSwitchChanged);
+                              })
+                              .where((card) =>
+                                  card.room == _selectedRoom &&
+                                  card.building == _selectedBuilding)
+                              .toList(),
                 ),
               ),
-              Expanded(
-                child: CustomCard(
-                  icon: Icons.sensor_window,
-                  outlinedIcon: Icons.sensor_window_outlined,
-                  title: "Volets",
-                  subtitle: "30 Volets",
-                  pillTextOn: "Fermés",
-                  pillTextOff: "Ouverts",
-                  switchValue: false,
-                  room: "Salon",
-                  onSwitchChanged: (bool) {},
-                ),
-              )
-            ],
-          ),
-          CustomCard(
-            icon: Icons.sensor_door,
-            outlinedIcon: Icons.sensor_door_outlined,
-            title: "Portes",
-            subtitle: "10 Portes",
-            pillTextOn: "Fermées",
-            pillTextOff: "Ouvertes",
-            switchValue: false,
-            room: "Cuisine",
-            onSwitchChanged: (bool) {},
+            ),
           )
         ],
-      )),
+      ),
       // floatingActionButton: FloatingActionButton(
       //   onPressed: _sendMessage,
       //   tooltip: 'Send message',
