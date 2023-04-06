@@ -87,6 +87,7 @@ void main() {
       });
 
       tearDown(() async {
+        // ignore: dead_code
         await subscription?.cancel();
       });
     });

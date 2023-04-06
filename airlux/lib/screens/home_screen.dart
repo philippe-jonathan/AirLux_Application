@@ -10,10 +10,10 @@ class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  HomeScreenState createState() => HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreenState extends State<HomeScreen> {
   // Text editing controllers
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -67,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
       switchValue: true,
       building: "Bâtiment 1",
       room: "Salon",
-      onSwitchChanged: (bool) {},
+      onSwitchChanged: (value) {},
     ),
     CustomCard(
       icon: Icons.sensor_window,
@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
       switchValue: false,
       building: "Bâtiment 2",
       room: "Salon",
-      onSwitchChanged: (bool) {},
+      onSwitchChanged: (value) {},
     ),
     CustomCard(
       icon: Icons.sensor_door,
@@ -91,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
       switchValue: false,
       building: "Bâtiment 1",
       room: "Cuisine",
-      onSwitchChanged: (bool) {},
+      onSwitchChanged: (value) {},
     ),
     CustomCard(
       icon: Icons.lightbulb,
@@ -103,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
       switchValue: true,
       building: "Bâtiment 1",
       room: "Chambre 1",
-      onSwitchChanged: (bool) {},
+      onSwitchChanged: (value) {},
     ),
     CustomCard(
       icon: Icons.sensor_window,
@@ -115,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
       switchValue: false,
       building: "Bâtiment 2",
       room: "Chambre 1",
-      onSwitchChanged: (bool) {},
+      onSwitchChanged: (value) {},
     ),
     CustomCard(
       icon: Icons.sensor_door,
@@ -127,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
       switchValue: false,
       building: "Bâtiment 2",
       room: "Chambre 2",
-      onSwitchChanged: (bool) {},
+      onSwitchChanged: (value) {},
     )
   ];
 
