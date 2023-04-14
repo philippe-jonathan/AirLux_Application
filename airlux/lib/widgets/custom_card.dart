@@ -8,8 +8,8 @@ class CustomCard extends StatefulWidget {
   final String pillTextOn;
   final String pillTextOff;
   final bool switchValue;
-  final String building;
-  final String room;
+  final String? building;
+  final String? room;
   final Function(bool) onSwitchChanged;
 
   const CustomCard({
@@ -21,8 +21,8 @@ class CustomCard extends StatefulWidget {
     required this.pillTextOn,
     required this.pillTextOff,
     required this.switchValue,
-    required this.building,
-    required this.room,
+    this.building,
+    this.room,
     required this.onSwitchChanged,
   });
 
