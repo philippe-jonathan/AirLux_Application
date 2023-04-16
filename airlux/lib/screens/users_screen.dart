@@ -24,7 +24,16 @@ class UsersScreenState extends State<UsersScreen> {
     CustomCard(
         icon: Icons.person,
         outlinedIcon: Icons.person_outline,
-        title: "Jonathan Philippe",
+        title: "Loup Bruneau",
+        subtitle: "Autres informations",
+        pillTextOn: "Autorisé",
+        pillTextOff: "Non autorisé",
+        switchValue: true,
+        onSwitchChanged: (bool) {}),
+    CustomCard(
+        icon: Icons.person,
+        outlinedIcon: Icons.person_outline,
+        title: "Dang Nguyen",
         subtitle: "Autres informations",
         pillTextOn: "Autorisé",
         pillTextOff: "Non autorisé",
@@ -84,6 +93,39 @@ class UsersScreenState extends State<UsersScreen> {
             );
           },
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            builder: (BuildContext context) {
+              return Container(
+                height: 200.0,
+                color: Colors.white,
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'Contenu de la popup',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 20.0),
+                      ElevatedButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: Text('Fermer'),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }

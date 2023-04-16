@@ -82,7 +82,7 @@ class CustomCardState extends State<CustomCard> {
                       padding: const EdgeInsets.all(8.0),
                       child: Expanded(
                         child: SizedBox(
-                          width: 95,
+                          width: 250,
                           child: Text(
                             widget.title,
                             style: Theme.of(context).textTheme.titleSmall,
