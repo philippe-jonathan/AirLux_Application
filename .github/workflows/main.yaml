@@ -44,7 +44,7 @@ jobs:
       - name: Install Flutter dependencies
         run: cd airlux/ && flutter pub get
       - name: Run integration tests
-        run: flutter test integration_test --verbose
+        run: flutter test integration_test
 
   # job responsible for running Flutter tests on Android devices
   android:
@@ -72,4 +72,4 @@ jobs:
           api-level: ${{ matrix.api-level }}
           arch: x86_64
           profile: Nexus 6
-          script: flutter test integration_test --verbose
+          script: flutter test integration_test
