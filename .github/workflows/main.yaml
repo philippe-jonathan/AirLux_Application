@@ -1,7 +1,11 @@
 name: main
 
 # Trigger the workflow manually or after push a commit
-on: [push]
+
+on:
+  push:
+    branches:
+      - login_signup
 
 # 2 jobs are configured.
 # The first one runs tests on iOS devices.
