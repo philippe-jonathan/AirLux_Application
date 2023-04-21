@@ -5,7 +5,8 @@ name: main
 on:
   push:
     branches:
-      - login_signup
+      - "login_signup"
+        "integration_test"
 
 # 2 jobs are configured.
 # The first one runs tests on iOS devices.
