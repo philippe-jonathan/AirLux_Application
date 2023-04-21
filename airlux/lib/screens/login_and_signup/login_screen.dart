@@ -31,6 +31,7 @@ class LoginScreen extends StatelessWidget {
 
               // Email field
               CustomTextfield(
+                key: const ValueKey('email_field'),
                 controller: emailController,
                 emailText: true,
                 hintText: 'E-mail',
@@ -41,6 +42,7 @@ class LoginScreen extends StatelessWidget {
 
               // Password field
               CustomTextfield(
+                key: const ValueKey('password_field'),
                 controller: passwordController,
                 emailText: false,
                 hintText: 'Mot de passe',
@@ -51,12 +53,15 @@ class LoginScreen extends StatelessWidget {
 
               // Forgot password
               TextButton(
-                  onPressed: () {}, child: const Text('Mot de passe oublié')),
+                  key: const ValueKey('forgot_password_button'),
+                  onPressed: () {},
+                  child: const Text('Mot de passe oublié')),
 
               const SizedBox(height: 20),
 
               // Login button
               ElevatedButton(
+                key: const ValueKey('login_button'),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -69,6 +74,7 @@ class LoginScreen extends StatelessWidget {
               const SizedBox(height: 50),
               // Create account
               TextButton(
+                key: const ValueKey('create_account_button'),
                 onPressed: () {
                   Navigator.push(
                     context,
