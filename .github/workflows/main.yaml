@@ -5,12 +5,11 @@ name: main
 on:
   push:
     branches:
-      - "login_signup"
-        "integration_test"
+      - login_signup
 
 # 2 jobs are configured.
 # The first one runs tests on iOS devices.
-# The second runs tests on Android devices.
+# The second runs tests on Android devices
 jobs:
 
   # job responsible for running Flutter tests on iOS devices
