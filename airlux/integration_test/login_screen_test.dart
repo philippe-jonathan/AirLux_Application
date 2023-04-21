@@ -6,8 +6,9 @@ import 'package:integration_test/integration_test.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('Test presence of elements on login screen', () {
-    testWidgets('test presence of elements on login screen', (tester) async {
+  group('login screen integration test', () {
+    testWidgets('test presence of all elements on login screen',
+        (tester) async {
       // Créer un widget MaterialApp avec la page de connexion
       await tester.pumpWidget(MaterialApp(home: LoginScreen()));
 
