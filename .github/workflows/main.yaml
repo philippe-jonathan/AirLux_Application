@@ -52,7 +52,7 @@ jobs:
     strategy:
       matrix:
         api-level:
-          - 31
+          - 32
           # you can add more API level if you want to run your tests on different API
       fail-fast: true
     steps:
@@ -72,4 +72,4 @@ jobs:
           api-level: ${{ matrix.api-level }}
           arch: x86_64
           profile: Nexus 6
-          script: flutter test integration_test
+          script: cd airlux/ && flutter test integration_test
