@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - login_signup
+  workflow_dispatch: 
 
 # 2 jobs are configured.
 # The first one runs tests on iOS devices.
