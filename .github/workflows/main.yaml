@@ -48,10 +48,10 @@ jobs:
 
   android:
     runs-on: macos-latest
-      env:
-        JAVA_HOME: /Library/Java/JavaVirtualMachines/jdk1.8.0_latest/Contents/Home
-        ANDROID_HOME: /usr/local/share/android-sdk
-        PATH: ${{ env.ANDROID_HOME }}/emulator:${{ env.ANDROID_HOME }}/tools:${{ env.ANDROID_HOME }}/tools/bin:${{ env.ANDROID_HOME }}/platform-tools:$PATH
+    env:
+      JAVA_HOME: /Library/Java/JavaVirtualMachines/jdk1.8.0_latest/Contents/Home
+      ANDROID_HOME: /usr/local/share/android-sdk
+      PATH: ${{ env.ANDROID_HOME }}/emulator:${{ env.ANDROID_HOME }}/tools:${{ env.ANDROID_HOME }}/tools/bin:${{ env.ANDROID_HOME }}/platform-tools:$PATH
     steps:
       - name: "List all available emulators"
         run: "emulator -list-avds"
