@@ -87,8 +87,8 @@ jobs:
           # flutter-version: '3.7.7'
           channel: 'stable'
       - run: | 
-        cd airlux/
-        flutter pub get
-        flutter test integration_test
-        # flutter build apk
-        # flutter build appbundle
+          cd airlux/
+          flutter pub get
+          flutter test integration_test
+          # flutter build apk
+          # flutter build appbundle
