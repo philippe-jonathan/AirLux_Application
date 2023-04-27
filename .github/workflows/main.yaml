@@ -83,11 +83,10 @@ jobs:
           # flutter-version: '2.5.3'
           channel: 'stable'
       
-      - name: Run android simulator
-        uses: reactivecircus/android-emulator-runner@v2
+      - name: Android Emulator Runner
+        uses: ReactiveCircus/android-emulator-runner@v2.28.0
         with:
           api-level: 29
-          script: ./gradlew connectedCheck
 
       - name: Run integration tests
         run: | 
