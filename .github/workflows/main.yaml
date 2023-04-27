@@ -79,9 +79,19 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
+      
+      - name: setup flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+        
+      - name: install dependencies
+        run: cd airlux/ && flutter pub get
 
-      - name: run tests
+      - name: run integration tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
-          script: ./gradlew connectedCheck
+          script: | 
+            ./gradlew connectedCheck
+            cd airlux/ && flutter test integration_test
