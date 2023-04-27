@@ -82,17 +82,23 @@ jobs:
         with:
           # flutter-version: '2.5.3'
           channel: 'stable'
+
+      - name: Install Android emulator
+        run: sdkmanager "system-images;android-31;google_apis;x86_64" "platforms;android-31" "emulator" "build-tools;31.0.0"
+
+      - name: Create Android emulator
+        run: echo no | avdmanager create avd --force --name test --device "pixel" --package "system-images;android-31;google_apis;x86_64" --abi "google_apis/x86_64"
       
-      - name: Android Emulator Runner
-        uses: ReactiveCircus/android-emulator-runner@v2.28.0
-        with:
-          api-level: 29
-          script: gradle wrapper && ./gradlew connectedCheck
+      - name: Start Android emulator
+        run: $ANDROID_HOME/emulator/emulator -avd test -no-window -no-audio
 
       - name: Run integration tests
-        run: | 
-          cd airlux/
-          flutter pub get
-          flutter devices
-          # flutter doctor
-          # flutter test integration_test
+        run: flutter drive --target=test_driver/app.dart -d emulator-5554
+
+      # - name: Run integration tests
+      #   run: | 
+      #     cd airlux/
+      #     flutter pub get
+      #     flutter devices
+      #     # flutter doctor
+      #     # flutter test integration_test
