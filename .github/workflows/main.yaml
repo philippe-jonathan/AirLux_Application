@@ -75,16 +75,24 @@ jobs:
   #         script: cd airlux/ && flutter test integration_test
 
   android:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
           # flutter-version: '2.5.3'
           channel: 'stable'
+      
+      - name: Run android simulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          script: ./gradlew connectedCheck
+
       - name: Run integration tests
         run: | 
           cd airlux/
           flutter pub get
-          flutter doctor
+          flutter devices
+          # flutter doctor
           # flutter test integration_test
