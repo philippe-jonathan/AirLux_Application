@@ -92,7 +92,7 @@ jobs:
           curl -s "https://get.sdkman.io" | bash
           source "$HOME/.sdkman/bin/sdkman-init.sh"
           sdk install java 18-tem
-          yes | sdk install gradle
+          yes | sdk install gradle 7.5
           yes | sdk install android
         shell: bash
 
