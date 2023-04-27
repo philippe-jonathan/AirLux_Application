@@ -74,39 +74,33 @@ jobs:
   #         profile: Nexus 6
   #         script: cd airlux/ && flutter test integration_test
 
+
   android:
     runs-on: macos-latest
-    env:
-      ANDROID_HOME: ${{ env.AGENT_TOOLSDIRECTORY }}/android-sdk
-
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
       - name: Setup Java
         uses: actions/setup-java@v2
         with:
-          java-version: '18'
+          # distribution: 'adopt'
+          java-version: 18
 
-      - uses: subosito/flutter-action@v1
+      - name: Setup Android emulator
+        uses: reactivecircus/android-emulator-runner@v2
         with:
-          channel: 'stable'
+          api-level: 31
+          arch: x86_64
+          profile: default
+          emulator-options: '-no-window -no-audio -no-snapshot -no-boot-anim'
 
-      - name: Install Android SDK
-        run: |
-          mkdir -p "$ANDROID_HOME/cmdline-tools"
-          curl -L https://dl.google.com/android/repository/commandlinetools-mac-7583922_latest.zip -o /tmp/cmdline-tools.zip
-          unzip -qqo /tmp/cmdline-tools.zip -d "$ANDROID_HOME/cmdline-tools"
-          rm /tmp/cmdline-tools.zip
-          yes | $ANDROID_HOME/cmdline-tools/tools/bin/sdkmanager --licenses
-          $ANDROID_HOME/cmdline-tools/tools/bin/sdkmanager "platform-tools" "platforms;android-31" "system-images;android-31;google_apis;x86_64"
+      - name: Wait for emulator
+        uses: andrielfn/wait-for-emulator-action@v1
 
-      - name: Start Android emulator
+      - name: Build and test
         run: |
-          emulator -avd emulator -no-window -no-audio -no-snapshot -no-boot-anim &
-          android-wait-for-emulator
-
-      - name: Run integration tests
-        run: |
-          cd airlux/
-          flutter devices
-          flutter test integration_test
+          flutter pub get
+          flutter build apk
+          flutter drive --driver=test_driver/integration_test/ --target=integration_test/login_screen_test.dart
+          # flutter drive --driver=test_driver/integration_test/ --target=integration_test/app_test.dart
