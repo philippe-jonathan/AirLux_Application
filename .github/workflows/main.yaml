@@ -77,42 +77,18 @@ jobs:
   android:
     runs-on: macos-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      # Install Flutter
-      - name: Install Flutter
-        uses: subosito/flutter-action@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v2
         with:
+          distribution: 'zulu'
+          java-version: '11'
+      - uses: subosito/flutter-action@v2
+        with:
+          # flutter-version: '3.7.7'
           channel: 'stable'
-
-      # Install Android SDK
-      - name: Install Android SDK
-        run: |
-          curl -s "https://get.sdkman.io" | bash
-          source "$HOME/.sdkman/bin/sdkman-init.sh"
-          sdk install java 18-tem
-          yes | sdk install gradle 7.5
-          echo "export GRADLE_HOME=$(sdk which gradle | sed 's/bin\/gradle//')" >> $GITHUB_ENV
-          yes | sdk install android
-        shell: bash
-
-      # Create Android emulator
-      - name: Create Android emulator
-        run: |
-          sdkmanager --install 'system-images;android-31;google_apis;x86_64'
-          echo no | avdmanager create avd --force --name emulator --abi 'google_apis/x86_64' --package 'system-images;android-31;google_apis;x86_64'
-        shell: bash
-
-      # Start Android emulator
-      - name: Start Android emulator
-        run: |
-          emulator -avd emulator -no-window -no-audio -no-snapshot -no-boot-anim &
-          android-wait-for-emulator
-        shell: bash
-
-      # Run integration tests
-      - name: Run integration tests
-        run: |
-          cd airlux/
-          flutter drive --target=integration_test -d emulator
+      - run: | 
+        cd airlux/
+        flutter pub get
+        flutter test integration_test
+        # flutter build apk
+        # flutter build appbundle
