@@ -87,7 +87,8 @@ jobs:
         uses: ReactiveCircus/android-emulator-runner@v2.28.0
         with:
           api-level: 29
-
+          script: ./gradlew connectedCheck
+          
       - name: Run integration tests
         run: | 
           cd airlux/
