@@ -75,7 +75,7 @@ jobs:
   #         script: cd airlux/ && flutter test integration_test
 
   android:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
