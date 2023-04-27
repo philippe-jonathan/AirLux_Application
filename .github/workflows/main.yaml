@@ -82,13 +82,23 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
+
       - uses: subosito/flutter-action@v2
         with:
-          # flutter-version: '3.7.7'
           channel: 'stable'
-      - run: | 
+
+      - name: Install Android SDK
+        run: |
+          sdkmanager --install 'system-images;android-31;google_apis;x86_64'
+          echo no | avdmanager create avd --force --name emulator --abi 'google_apis/x86_64' --package 'system-images;android-31;google_apis;x86_64'
+
+      - name: Start Android emulator
+        run: |
+          emulator -avd emulator -no-window -no-audio -no-snapshot -no-boot-anim &
+          android-wait-for-emulator
+
+      - name: Run integration tests
+        run: |
           cd airlux/
-          flutter pub get
+          flutter devices
           flutter test integration_test
-          # flutter build apk
-          # flutter build appbundle
