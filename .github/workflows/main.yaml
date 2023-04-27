@@ -89,8 +89,12 @@ jobs:
 
       - name: Install Android SDK
         run: |
-          sdkmanager --install 'system-images;android-31;google_apis;x86_64'
-          echo no | avdmanager create avd --force --name emulator --abi 'google_apis/x86_64' --package 'system-images;android-31;google_apis;x86_64'
+          mkdir -p "$ANDROID_HOME/cmdline-tools"
+          curl -L https://dl.google.com/android/repository/commandlinetools-mac-7583922_latest.zip -o /tmp/cmdline-tools.zip
+          unzip -qqo /tmp/cmdline-tools.zip -d "$ANDROID_HOME/cmdline-tools"
+          rm /tmp/cmdline-tools.zip
+          yes | $ANDROID_HOME/cmdline-tools/tools/bin/sdkmanager --licenses
+          $ANDROID_HOME/cmdline-tools/tools/bin/sdkmanager "platform-tools" "platforms;android-31" "system-images;android-31;google_apis;x86_64"
 
       - name: Start Android emulator
         run: |
