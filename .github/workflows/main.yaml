@@ -80,38 +80,30 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Install Flutter
-      - name: Install Flutter
-        uses: subosito/flutter-action@v2
+      - name: Install Java
+        uses: actions/setup-java@v2
         with:
+          distribution: 'tem'
+          java-version: '17.0.7'
+          cache: 'local'
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v1.6.1
+        with:
+          # flutter-version: 'stable'
           channel: 'stable'
 
-      # Install Android SDK
-      - name: Install Android SDK
-        run: |
-          curl -s "https://get.sdkman.io" | bash
-          source "$HOME/.sdkman/bin/sdkman-init.sh"
-          yes | sdk install java
-          yes | sdk install gradle
-          yes | sdk install android
-        shell: bash
+      - name: Set up Android emulator
+        uses: android-actions/setup-android-emulator@v1
+        with:
+          api-level: 31
+          arch: x86_64
+          profile: pixel
+          tag: default
+          force: true
 
-      # Create Android emulator
-      - name: Create Android emulator
-        run: |
-          sdkmanager --install 'system-images;android-31;google_apis;x86_64'
-          echo no | avdmanager create avd --force --name emulator --abi 'google_apis/x86_64' --package 'system-images;android-31;google_apis;x86_64'
-        shell: bash
+      - name: Wait for emulator to finish booting
+        uses: android-actions/wait-for-emulator@v1
 
-      # Start Android emulator
-      - name: Start Android emulator
-        run: |
-          emulator -avd emulator -no-window -no-audio -no-snapshot -no-boot-anim &
-          android-wait-for-emulator
-        shell: bash
-
-      # Run integration tests
       - name: Run integration tests
-        run: |
-          cd airlux/
-          flutter drive --target=integration_test -d emulator
+        run: flutter drive --target=test_driver/integration_test/ -d emulator-5554
