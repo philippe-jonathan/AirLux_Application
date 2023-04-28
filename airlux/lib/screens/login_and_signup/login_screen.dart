@@ -23,7 +23,7 @@ class LoginScreen extends StatelessWidget {
             children: [
               // Texte de bienvenue
               Text(
-                'Connectez vous !',
+                'Connectez vous !!',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
 

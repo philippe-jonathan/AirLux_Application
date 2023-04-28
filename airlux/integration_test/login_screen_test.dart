@@ -12,7 +12,7 @@ void main() {
       await tester.pumpWidget(MaterialApp(home: LoginScreen()));
 
       // Vérifier la présence du texte "Connectez vous !" à l'écran
-      expect(find.text('Connectez vous !'), findsOneWidget);
+      expect(find.text('Connectez vous !!'), findsOneWidget);
 
       // Vérifier la présence du champ de saisie d'email (CustomTextField)
       expect(find.byKey(const ValueKey('email_field')), findsOneWidget);
