@@ -1,5 +1,4 @@
 import 'package:airlux/widgets/custom_card.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class UsersScreen extends StatefulWidget {
@@ -106,17 +105,17 @@ class UsersScreenState extends State<UsersScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text(
+                      const Text(
                         'Contenu de la popup',
                         style: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 20.0),
+                      const SizedBox(height: 20.0),
                       ElevatedButton(
                         onPressed: () => Navigator.pop(context),
-                        child: Text('Fermer'),
+                        child: const Text('Fermer'),
                       ),
                     ],
                   ),
