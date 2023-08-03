@@ -93,7 +93,9 @@ class CustomCardState extends State<CustomCard> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        widget.subtitle,
+                        widget.room != null
+                            ? '${widget.subtitle} - ${widget.room}'
+                            : widget.subtitle,
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ),

@@ -96,8 +96,8 @@ class HomeScreenState extends State<HomeScreen> {
     CustomCard(
       icon: Icons.lightbulb,
       outlinedIcon: Icons.lightbulb_outline,
-      title: "Lumières du salon",
-      subtitle: "85 Lumières",
+      title: "Lumières",
+      subtitle: "2 Lumières",
       pillTextOn: "Allumées",
       pillTextOff: "Éteintes",
       switchValue: true,

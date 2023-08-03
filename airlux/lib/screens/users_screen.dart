@@ -1,6 +1,8 @@
 import 'package:airlux/widgets/custom_card.dart';
 import 'package:flutter/material.dart';
 
+import '../widgets/custom_textfield.dart';
+
 class UsersScreen extends StatefulWidget {
   const UsersScreen({super.key});
 
@@ -9,6 +11,11 @@ class UsersScreen extends StatefulWidget {
 }
 
 class UsersScreenState extends State<UsersScreen> {
+  // Text editing controllers
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final textController = TextEditingController();
+
   // Tableau des cards
   List<CustomCard> cards = [
     CustomCard(
@@ -95,31 +102,83 @@ class UsersScreenState extends State<UsersScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showModalBottomSheet(
+          showModalBottomSheet<dynamic>(
+            isScrollControlled: true,
             context: context,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
             builder: (BuildContext context) {
-              return Container(
-                height: 200.0,
-                color: Colors.white,
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: Wrap(
+                    // height: 200.0,
+                    // color: Colors.white,
+
                     children: <Widget>[
-                      const Text(
-                        'Contenu de la popup',
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
+                      Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Form(
+                                child: Column(
+                              children: <Widget>[
+                                CustomTextfield(
+                                  controller: textController,
+                                  emailText: false,
+                                  hintText: 'Nom',
+                                  obscureText: false,
+                                ),
+
+                                const SizedBox(height: 20),
+
+                                CustomTextfield(
+                                  controller: textController,
+                                  emailText: false,
+                                  hintText: 'Prénom',
+                                  obscureText: false,
+                                ),
+
+                                const SizedBox(height: 20),
+
+                                // Email field
+                                CustomTextfield(
+                                  controller: emailController,
+                                  emailText: true,
+                                  hintText: 'E-mail',
+                                  obscureText: false,
+                                ),
+
+                                const SizedBox(height: 20),
+
+                                // Password field
+                                CustomTextfield(
+                                  controller: passwordController,
+                                  emailText: false,
+                                  hintText: 'Mot de passe',
+                                  obscureText: true,
+                                ),
+
+                                const SizedBox(height: 20),
+
+                                // Check password field
+                                CustomTextfield(
+                                  controller: passwordController,
+                                  emailText: false,
+                                  hintText: 'Connfirmer le mot de passe',
+                                  obscureText: true,
+                                ),
+                              ],
+                            )),
+                            const SizedBox(height: 20.0),
+                            ElevatedButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text('Ajouter'),
+                            ),
+                          ],
                         ),
                       ),
-                      const SizedBox(height: 20.0),
-                      ElevatedButton(
-                        onPressed: () => Navigator.pop(context),
-                        child: const Text('Fermer'),
-                      ),
-                    ],
-                  ),
-                ),
+                    ]),
               );
             },
           );
